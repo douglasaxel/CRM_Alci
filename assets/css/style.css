@@ -1,0 +1,88 @@
+/*table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+    bottom: .5em;
+}*/
+
+.font-light {
+    font-weight: lighter;
+    font-size: small;
+}
+
+.btn-edit {
+    width: 200px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.center {
+    margin: 0 auto;
+}
+
+#nav-bar {
+	background-color: #0045E2 !important;
+}
+
+#nav-bar a {
+	color: white;
+}
+
+#nav-bar img {
+	border-radius: 100px;
+}
+
+#brand {
+	font-size: 1.6rem;
+}
+
+#mais-informacoes {
+	padding: 1rem !important;
+}
+
+#mais-informacoes input, #mais-informacoes textarea {
+	background-color: #fff;
+}
+
+#mais-informacoes h4, .card-title {
+	color: #13C5FF;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.card label {
+	font-size: 14px;
+	color: #9B9B9B;
+}
+
+.btn-save-comment {
+	background-color: #13C5FF;
+	border-color: #13C5FF;
+}
+
+.form-control {
+	border: 0 !important;
+	border-bottom: 1px solid #0045E2 !important;
+	border-radius: 0 !important;
+}
+
+.btn-add {
+	background-color: #13C5FF;
+	border: 1px solid #13C5FF;
+}
+
+.page-item.active .page-link {
+  background-color: #13C5FF;
+  border-color: #13C5FF;
+}
+
+tr {
+	border-bottom: 1px solid #0045E2 !important;
+}
