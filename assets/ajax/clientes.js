@@ -1,38 +1,41 @@
-var clients_table;
+$(document).ready(function() {
+	$( "#form-addClient" ).submit(function(form) {
+		$.ajax({
+			method: 'POST',
+			url: 'clientes/save',
+			data: $('#form-addClient').serialize(),
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+			},
+			error: function() {
 
-$(document).ready(function(){
-	clients_table = $('#clients_table').DataTable({
-		'language': {
-		"sEmptyTable": "Nenhum registro encontrado",
-		"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-		"sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-		"sInfoFiltered": "(Filtrados de _MAX_ registros)",
-		"sInfoPostFix": "",
-		"sInfoThousands": ".",
-		"sLengthMenu": "_MENU_ resultados por página",
-		"sLoadingRecords": "Carregando...",
-		"sProcessing": "Processando...",
-		"sZeroRecords": "Nenhum registro encontrado",
-		"sSearch": "Pesquisar",
-		"oPaginate": {
-			"sNext": "Próximo",
-			"sPrevious": "Anterior",
-			"sFirst": "Primeiro",
-			"sLast": "Último"
-		},
-		"oAria": {
-			"sSortAscending": ": Ordenar colunas de forma ascendente",
-			"sSortDescending": ": Ordenar colunas de forma descendente"
-		}
-		}
+			}
+		});
 	});
+
+	$('form#form-clientComment').submit(function(form) {
+		form.preventDefault();
+		$.post('/index.php/clientes/save_desc', $('form#form-clientComment').serialize(), function(data) {
+			console.log($('form#form-clientComment').serialize());
+		});
+	});
+
+	// $( "form#form-clientComment" ).submit(function(form) {
+	// 	// form.preventDefault();
+	// 	dados = $('form#form-clientComment').serialize();
+	// 	$.ajax({
+	// 		method: 'POST',
+	// 		url: '/index.php/clientes/save_desc',
+	// 		data: {dados : dados},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+	// 			console.log(data);
+	// 		},
+	// 		error: function(data) {
+	// 			console.log(data);
+	// 			alert('Erro de transmissão');
+	// 		}
+	// 	});
+	// });
 });
-
-function addClient() {
-    $('#addClient')[0].reset();
-
-    $('#addClient').unbind('submit').bind('submit', function() {
-        alert('ok');
-        return false;
-    });
-}

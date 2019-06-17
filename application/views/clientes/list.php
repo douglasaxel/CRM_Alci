@@ -27,7 +27,7 @@
             <div class="form-group">
                 <input class="form-control" type="text" name="email" placeholder="E-mail" value="<?php if (!empty(htmlspecialchars($show['email']))) echo htmlspecialchars($show['email']); ?>" readonly>
             </div>
-            <form action="<?= site_url('clientes/save_desc'); ?>" method="post">
+            <form id="form-clientComment" action="" method="post">
                 <input type="hidden" name="id" value="<?php if (!empty($show['id'])) echo $show['id']; ?>">
                 <div class="form-group">
                     <textarea class="form-control" name="descricao" <?php if (empty($show['id'])) echo 'readonly'; ?>><?php if (!empty(htmlspecialchars($show['descricao']))) echo htmlspecialchars($show['descricao']); ?></textarea>
@@ -46,7 +46,7 @@
                     <button class="btn btn-fill btn-danger"><i class="fas fa-file-pdf"></i> Imprimir</button>
                 </div>
                 <div class="float-right">
-                    <button data-toggle="modal" data-target="#addClient" class="btn btn-fill btn-info btn-add"><i class="far fa-plus-square" onclick="addClient()"></i> Adicionar</button>
+                    <button data-toggle="modal" data-target="#addClient" class="btn btn-fill btn-info btn-add"><i class="far fa-plus-square"></i> Adicionar</button>
                 </div>
             </div>
             <div style="margin: 1rem;">
@@ -64,7 +64,7 @@
                             <tr>
                                 <td><?= $c['nome'] . ' ' . $c['sobrenome']; ?></td>
                                 <td><?= $c['cpf']; ?></td>
-                                <td><?= $c['data_nasc']; ?></td>
+                                <td><?= date('d/m/Y', strtotime($c['data_nasc'])); ?></td>
                                 <td><?= $c['regiao']; ?></td>
                                 <td><?= $c['celular']; ?></td>
                                 <td style="display: inline-flex;">
@@ -76,6 +76,14 @@
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    <tfoot>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Região</th>
+                        <th>Celular</th>
+                        <th>Opções</th>
+                    </tfoot>
                 </table>
             </div>
         </div>

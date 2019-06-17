@@ -1,10 +1,8 @@
   <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-  class Clientes extends CI_Controller
-  {
+  class Clientes extends CI_Controller {
 
-      public function __construct()
-      {
+      public function __construct() {
           parent::__construct();
           $this->session_control->verify_session();
 
@@ -22,9 +20,9 @@
               array(
                   'field' => 'cpf',
                   'label' => 'CPF',
-                  'rules' => 'required|is_unique[clientes.cpf]',
+                  'rules' => 'is_unique[clientes.cpf]',
                   array(
-                      'is_unique[clientes.cpf]' => 'Este %s já está cadastrado.'
+                      'is_unique[clientes.cpf]' => 'Este CPF já está cadastrado.'
                   )
               )
           );
@@ -38,8 +36,7 @@
           $this->template->load('template/restrito', 'clientes/list', $data);
       }
 
-      public function save()
-      {
+      public function save() {
           $data = $this->input->post(null, true);
 
           if($this->form_validation->run()){
@@ -50,48 +47,32 @@
                       $this->db->insert('clientes', $data);
                   }
               }
+          } else {
+              unset($data);
+              $data['error'] = validation_errors();
           }
           $this->index();
       }
 
-      public function save_desc()
-      {
+      public function save_desc() {
           $data = $this->input->post(null, null);
+          echo '<pre>'; die(print_r($data));
           $this->db->where('id', $data['id'])->update('clientes', $data);
+          echo 'success';
           $this->show($data['id']);
       }
 
-      public function edit($id = null)
-      {
+      public function edit($id = null) {
           $data['cliente'] = $this->db->where('id', $id)->get('clientes')->result_array()[0];
           $this->template->load('template/restrito', 'clientes/edit', $data);
       }
 
-      public function delete($id)
-      {
+      public function delete($id) {
           $this->db->where('id', $id)->delete('clientes');
           $this->index();
       }
 
-      public function search()
-      {
-          $text = $this->input->post('search', true);
-
-          $data['clientes'] = $this->db->like('id', $text)
-              ->or_like('nome', $text)
-              ->or_like('sobrenome', $text)
-              ->or_like('cpf', $text)
-              ->or_like('data_nasc', $text)
-              ->or_like('regiao', $text)
-              ->or_like('celular', $text)
-              ->get('clientes')
-              ->result_array();
-
-          $this->template->load('template/restrito', 'clientes/list', $data);
-      }
-
-      public function show($id)
-      {
+      public function show($id) {
           $rs['show'] = $this->db->where('id', $id)->get('clientes')->result_array()[0];
           $rs['clientes'] = $this->db->get('clientes')->result_array();
           $this->template->load('template/restrito', 'clientes/list', $rs);

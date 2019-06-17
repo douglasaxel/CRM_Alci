@@ -61,19 +61,17 @@
 		<!--        inicio do bottom-->
 
 		<footer class="footer">
-				<p class="copyright pull-right">&copy; <script>
-								document.write(new Date().getFullYear())
-						</script> Douglas Kjellin.</p>
+			<p class="copyright pull-right">&copy; <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.</p>
 		</footer>
 
 		<div class="modal fade" tabindex="-1" role="dialog" id="addClient">
 			<div class="modal-dialog modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title">Modal title</h4>
+						<h4 class="modal-title">Cadastrar Cliente</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
-							<form method="post" action="" id="addForm">
+							<form method="POST" action="" id="form-addClient">
 								<div class="modal-body">
 													
 									<div class="form-row">
@@ -89,21 +87,21 @@
 									<div class="form-row">
 											<div class="form-group col-md-6">
 													<label>CPF</label>
-													<input type="text" class="form-control cpf" name="cpf" id="cpf" placeholder="CPF" required>
+													<input type="text" class="form-control cpf" name="cpf" id="cpf" placeholder="CPF">
 											</div>
 											<div class="form-group col-md-6">
 													<label>Data de nascimento</label>
-													<input type="date" class="form-control" name="data_nasc" placeholder="Data de nascimento" required>
+													<input type="date" class="form-control" name="data_nasc" placeholder="Data de nascimento">
 											</div>
 									</div>
 									<div class="form-row">
 											<div class="form-group col-md-5">
 													<label>Endereço</label>
-													<input type="text" class="form-control" name="endereco" placeholder="Avenida Assis Brasil, 0000" required>
+													<input type="text" class="form-control" name="endereco" placeholder="Avenida Assis Brasil, 0000">
 											</div>
 											<div class="form-group col-md-4">
 													<label>Bairro</label>
-													<input type="text" class="form-control" name="bairro" placeholder="Cristo Redentor" required>
+													<input type="text" class="form-control" name="bairro" placeholder="Cristo Redentor">
 											</div>
 											<div class="form-group col-md-3">
 													<label>Região</label>
@@ -123,15 +121,15 @@
 									<div class="form-row">
 											<div class="form-group col-md-3">
 													<label>Telefone</label>
-													<input type="text" class="form-control" name="telefone" >
+													<input type="text" class="form-control phone" name="telefone" >
 											</div>
 											<div class="form-group col-md-3">
 													<label>Celular</label>
-													<input type="text" class="form-control" name="celular"  required >
+													<input type="text" class="form-control phone" name="celular"  required >
 											</div>
 											<div class="form-group col-md-6">
 													<label>E-mail</label>
-													<input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com" required>
+													<input type="email" class="form-control" name="email" placeholder="exemplo@gmail.com">
 											</div>
 									</div>
 									<div class="form-row">
@@ -143,7 +141,7 @@
 								</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Save changes</button>
+								<button type="submit" class="btn btn-primary btn-addClient">Salvar Informações</button>
 							</div>
 								</form>
 				</div><!-- /.modal-content -->
@@ -154,6 +152,7 @@
 
 <script type="text/javascript" src="<?=base_url();?>assets/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>assets/js/jquery-mask.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/datatables.min.js"></script>
