@@ -69,7 +69,7 @@ $(document).ready(function() {
 	$('.btn-delete').click(function() {
 		$.ajax({
 			method: 'post',
-			url: caminho + 'clientes/delete/' + $('.btn-delete').val()
+			url: caminho + 'clientes/delete/' + $(this).val()
 		}).done(function(data) {
 			Swal.fire({
 				title: 'Sucesso',
@@ -89,7 +89,7 @@ $(document).ready(function() {
 	$('.btn-alter').click(function() {
 		$.ajax({
 			method: 'POST',
-			url: caminho + 'clientes/show/' + $('.btn-alter').val()
+			url: caminho + 'clientes/show/' + $(this).val()
 		}).done(function(data) {
 			data = JSON.parse(data);
 			$('#form-addClient').find('input[name=id]').val(data.id),
@@ -117,7 +117,7 @@ $(document).ready(function() {
 	$('.btn-show').click(function() {
 		$.ajax({
 			method: 'POST',
-			url: caminho + 'clientes/show/' + $('.btn-show').val()
+			url: caminho + 'clientes/show/' + $(this).val()
 		}).done(function(data) {
 			data = JSON.parse(data);
 			$('#mais-informacoes').find('input[name=id]').val(data.id),
