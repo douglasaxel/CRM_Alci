@@ -1,7 +1,7 @@
 <div class="wrapper-login fadeInDown">
     <div id="formContent">
         <div class="fadeIn first">
-            <img src="<?= base_url(); ?>assets/img/logo.jpeg" id="icon" alt="User Icon" />
+            <img src="<?= base_url(); ?>assets/img/logo.png" id="icon" alt="User Icon" />
             <!-- <h2>Pastor Alci</h2> -->
         </div>
 
@@ -12,7 +12,7 @@
         </form>
 
         <div id="formFooter">
-            <a class="underlineHover" href="#">Esqueceu a senha?</a>
+            <!-- <a class="underlineHover" href="#">Esqueceu a senha?</a> -->
         </div>
 
     </div>

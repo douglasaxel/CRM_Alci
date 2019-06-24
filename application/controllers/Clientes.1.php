@@ -38,7 +38,6 @@
 
       public function save() {
           $data = $this->input->post(null, true);
-          unset($data['site_url']);
 
           if($this->form_validation->run()){
               if (!empty($data['id'])) {
@@ -52,13 +51,15 @@
               unset($data);
               $data['error'] = validation_errors();
           }
-          echo json_encode($data);
+          $this->index();
       }
 
       public function save_desc() {
           $data = $this->input->post(null, null);
+          echo '<pre>'; die(print_r($data));
           $this->db->where('id', $data['id'])->update('clientes', $data);
-          echo $data['descricao'];
+          echo 'success';
+          $this->show($data['id']);
       }
 
       public function edit($id = null) {
@@ -68,9 +69,12 @@
 
       public function delete($id) {
           $this->db->where('id', $id)->delete('clientes');
+          $this->index();
       }
 
       public function show($id) {
-          echo json_encode($data = $this->db->where('id', $id)->get('clientes')->result_array()[0]);
+          $rs['show'] = $this->db->where('id', $id)->get('clientes')->result_array()[0];
+          $rs['clientes'] = $this->db->get('clientes')->result_array();
+          $this->template->load('template/restrito', 'clientes/list', $rs);
       }
   }

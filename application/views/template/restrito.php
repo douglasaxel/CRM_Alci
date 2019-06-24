@@ -3,7 +3,7 @@
 
 <head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/jpeg" href="<?= base_url(); ?>assets/img/logo.jpeg">
+		<link rel="icon" type="image/png" href="<?= base_url(); ?>assets/img/logo.png">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 		<title>Pastor Alci</title>
@@ -19,13 +19,14 @@
 		<link rel="stylesheet" href="<?=base_url();?>assets/css/datatables.min.css">
 		<link rel="stylesheet" href="<?=base_url();?>assets/css/summernote-bs4.css">
 		<link rel="stylesheet" href="<?=base_url();?>assets/css/jodit.min.css">
+		<link rel="stylesheet" href="<?=base_url();?>assets/css/sweetalert2.min.css">
 		<link rel="stylesheet" href="<?=base_url();?>assets/css/style.css">
 
 </head>
 
 <body>
 		<nav id="nav-bar" class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-				<a id="brand" class="navbar-brand font-weight-bold" href=""><img src="<?= base_url(); ?>assets/img/logo.jpeg" height="70px"> Pastor Alci</a>
+				<a id="brand" class="navbar-brand font-weight-bold" href=""><img src="<?= base_url(); ?>assets/img/logo.png" height="70px"> Pastor Alci</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 				</button>
@@ -61,7 +62,7 @@
 		<!--        inicio do bottom-->
 
 		<footer class="footer">
-			<p class="copyright pull-right">&copy; <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.</p>
+			<p class="copyright pull-right">Sistema criado por <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.</p>
 		</footer>
 
 		<div class="modal fade" tabindex="-1" role="dialog" id="addClient">
@@ -72,6 +73,8 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
 							<form method="POST" action="" id="form-addClient">
+							<input type="hidden" name="site_url" value="<?php echo site_url(); ?>">
+							<input type="hidden" name="id" value="">
 								<div class="modal-body">
 													
 									<div class="form-row">
@@ -91,7 +94,7 @@
 											</div>
 											<div class="form-group col-md-6">
 													<label>Data de nascimento</label>
-													<input type="date" class="form-control" name="data_nasc" placeholder="Data de nascimento">
+													<input type="date" class="form-control" name="data_nasc" min="1900-01-01" max="<?php echo date('Y-m-d'); ?>" placeholder="Data de nascimento">
 											</div>
 									</div>
 									<div class="form-row">
@@ -140,6 +143,7 @@
 
 								</div>
 							<div class="modal-footer">
+								<label id="resultado"></label>
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								<button type="submit" class="btn btn-primary btn-addClient">Salvar Informações</button>
 							</div>
@@ -159,6 +163,7 @@
 <script type="text/javascript" src="<?=base_url();?>assets/js/summernote-bs4.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/jodit.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/custom.js"></script>
+<script type="text/javascript" src="<?=base_url();?>assets/js/sweetalert2.all.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/ajax/clientes.js"></script>
 <?php echo linkJs(); ?>
 

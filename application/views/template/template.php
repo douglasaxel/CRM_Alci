@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/img/favicon.ico">
+    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/img/logo.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Pastor Alci</title>
@@ -38,7 +38,7 @@
     <!--        inicio do bottom-->
 
     <footer class="fixed-bottom sticky-bottom text-center" style="margin-bottom: 5px;">
-        &copy; <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.
+    Sistema criado por <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.
     </footer>
 
 </body>
