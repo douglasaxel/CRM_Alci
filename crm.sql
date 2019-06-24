@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `descricao` text COLLATE utf8_unicode_ci,
   `dia_env` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Exportação de dados foi desmarcado.
 
