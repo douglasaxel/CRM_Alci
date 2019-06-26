@@ -49,14 +49,16 @@ $(document).ready(function() {
 			data: {
 				id: $(this).find('input[name=id]').val(),
 				descricao: $(this).find('textarea[name=descricao]').val()
-			},
-			beforeSend: function() {
-				$('#resultado').html('Enviando...');
 			}
 		}).done(function(data) {
-			$(this).find('textarea[name=descricao]').val('');
-			$(this).find('textarea[name=descricao]').val(data);
 			$(this).find('#resultado').html('');
+			$(this).find('textarea[name=descricao]').val('');
+			Swal.fire({
+				title: 'Sucesso',
+				text: 'Descrição cadastrada com sucesso!',
+				type: 'success'
+			});
+			location.reload();
 		}).fail(function(jqXHR, textStatus, msg) {
 			Swal.fire({
 				title: 'ERRO',
@@ -121,8 +123,7 @@ $(document).ready(function() {
 		}).done(function(data) {
 			data = JSON.parse(data);
 			$('#mais-informacoes').find('input[name=id]').val(data.id),
-			$('#mais-informacoes').find('input[name=nome]').val(data.nome),
-			$('#mais-informacoes').find('input[name=sobrenome]').val(data.sobrenome),
+			$('#mais-informacoes').find('input[name=nome]').val(data.nome + ' ' + data.sobrenome),
 			$('#mais-informacoes').find('input[name=cpf]').val(data.cpf),
 			$('#mais-informacoes').find('input[name=data_nasc]').val(data.data_nasc),
 			$('#mais-informacoes').find('input[name=endereco]').val(data.endereco),

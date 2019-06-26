@@ -37,7 +37,6 @@
                 </div>
                 <input type="hidden" name="site_url" value="<?php echo site_url(); ?>">
             </form>
-            <label id="resultado"></label>
         </div>
     </div>
     <div class="col-md-12 col-lg-9 col-sm-12">
