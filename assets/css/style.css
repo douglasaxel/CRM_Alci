@@ -46,6 +46,14 @@ table.dataTable thead .sorting_desc_disabled:before {
 	padding: 1rem !important;
 }
 
+@media(min-height: 920px) {
+	#mais-informacoes {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 7rem;
+	}
+}
+
 #mais-informacoes input, #mais-informacoes textarea {
 	background-color: #fff;
 }

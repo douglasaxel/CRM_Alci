@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/png" href="<?= base_url(); ?>assets/img/logo.png">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="base" content="<?php echo base_url(); ?>">
 
 		<title>Pastor Alci</title>
 
@@ -62,7 +63,7 @@
 		<!--        inicio do bottom-->
 
 		<footer class="footer">
-			<p class="copyright pull-right">Sistema criado por <script>document.write(new Date().getFullYear())</script> Douglas Kjellin.</p>
+			<p class="copyright pull-right">Sistema criado por Douglas Kjellin <script>document.write(new Date().getFullYear())</script>.</p>
 		</footer>
 
 		<div class="modal fade" tabindex="-1" role="dialog" id="addClient">
@@ -94,7 +95,7 @@
 											</div>
 											<div class="form-group col-md-6">
 													<label>Data de nascimento</label>
-													<input type="date" class="form-control" name="data_nasc" min="1900-01-01" max="<?php echo date('Y-m-d'); ?>" placeholder="Data de nascimento">
+													<input type="date" class="form-control" name="data_nasc" min="1900-01-01" max="<?php echo date('Y-m-d'); ?>" placeholder="Data de nascimento" required>
 											</div>
 									</div>
 									<div class="form-row">
@@ -163,6 +164,7 @@
 <script type="text/javascript" src="<?=base_url();?>assets/js/summernote-bs4.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/jodit.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/custom.js"></script>
+<script type="text/javascript" src="<?=base_url();?>assets/js/moment.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/js/sweetalert2.all.min.js"></script>
 <script type="text/javascript" src="<?=base_url();?>assets/ajax/clientes.js"></script>
 <?php echo linkJs(); ?>

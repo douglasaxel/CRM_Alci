@@ -35,7 +35,6 @@
                 <div class="form-group text-center">
                     <button class="btn btn-info btn-fill btn-save-comment" type="submit">Salvar Comentário</button>
                 </div>
-                <input type="hidden" name="site_url" value="<?php echo site_url(); ?>">
             </form>
         </div>
     </div>
@@ -43,8 +42,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="float-left">
-                    <button class="btn btn-fill btn-success btn-csv"><i class="fas fa-file-excel"></i> Exportar</button>
-                    <button class="btn btn-fill btn-danger btn-pdf"><i class="fas fa-file-pdf"></i> Imprimir</button>
+                <form action="search" method="post">
+                    <label for="search">Pesquisa: 
+                    <input type="search" name="search" id="search">
+                    </label>
+                    <input type="submit" value="enviar">
+                </form>
+                    <!-- <button class="btn btn-fill btn-success btn-csv"><i class="fas fa-file-excel"></i> Exportar</button> -->
+                    <!-- <button class="btn btn-fill btn-danger btn-pdf"><i class="fas fa-file-pdf"></i> Imprimir</button> -->
                 </div>
                 <div class="float-right">
                     <button data-toggle="modal" data-target="#addClient" class="btn btn-fill btn-info btn-add"><i class="far fa-plus-square"></i> Adicionar</button>
@@ -65,7 +70,7 @@
                         <form method="post" id="list_clients">
                             <?php foreach ($clientes as $c) : ?>
                                 <tr>
-                                    <td><?= $c['id']; ?> <input type="checkbox" value="<?=$c['id']; ?>"></td>
+                                    <td><?= $c['id'] ?> <input type="checkbox" value="<?=$c['id']; ?>"></td>
                                     <td><?= $c['nome'] . ' ' . $c['sobrenome']; ?></td>
                                     <td><?= $c['cpf']; ?></td>
                                     <td><?= date('d/m/Y', strtotime($c['data_nasc'])); ?></td>
