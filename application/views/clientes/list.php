@@ -42,12 +42,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="float-left">
-                <form action="search" method="post">
+                <!-- <form action="search" method="post">
                     <label for="search">Pesquisa: 
                     <input type="search" name="search" id="search">
                     </label>
                     <input type="submit" value="enviar">
-                </form>
+                </form> -->
                     <!-- <button class="btn btn-fill btn-success btn-csv"><i class="fas fa-file-excel"></i> Exportar</button> -->
                     <!-- <button class="btn btn-fill btn-danger btn-pdf"><i class="fas fa-file-pdf"></i> Imprimir</button> -->
                 </div>

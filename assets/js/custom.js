@@ -7,8 +7,9 @@ $(document).ready(function(){
 			processing: true,
 			serverSide: true,
 			ajax: {
-				url: $('meta[name=base]').attr('content') + 'clientes/search',
+				url: $('meta[name=base]').attr('content') + 'clientes/index',
 				method: 'post',
+				dataType: 'json',
 				data: {search: search}
 			},
 			language: {
@@ -34,15 +35,23 @@ $(document).ready(function(){
 				"sSortDescending": ": Ordenar colunas de forma descendente"
 				}
 			},
-			buttons: {
-				buttons: true,
-				buttons: ['excel','pdf']
-			},
+			// buttons: true,
+			// buttons: {
+			// 	buttons: ['excel','pdf']
+			// },
+			columns: [
+				{data: 'id'},
+				{data: 'nome' + ' ' + 'sobrenome'},
+				{data: 'cpf'},
+				{data: 'data_nasc'},
+				{data: 'regiao'},
+				{data: 'celular'}
+			],
 			lengthMenu: [100,300,500]
 		});
 
-		clients_table.rows({selected: true}).data();
-		clients_table.buttons().container().appendTo($('div.float-left'));
+		// clients_table.rows({selected: true}).data();
+		// clients_table.buttons().container().appendTo($('div.float-left'));
 
 		$('#filter').click(function(){
 			var search = $('#search').val();
