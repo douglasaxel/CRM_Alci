@@ -20,14 +20,6 @@
 					'rules' => 'trim|required'
 				),
 				array(
-					'field' => 'cpf',
-					'label' => 'CPF',
-					'rules' => 'is_unique[clientes.cpf]',
-					array(
-						'is_unique[clientes.cpf]' => 'Este CPF já está cadastrado.'
-					)
-				),
-				array(
 					'field' => 'regiao',
 					'label' => 'Região',
 					'rules' => 'trim|required'
@@ -45,59 +37,69 @@
 			);
 
 			$this->form_validation->set_rules($config);
-			$this->form_validation->set_error_delimiters('', '');
 		}
 
 		public function index()
 		{
-			$columns = array(
-				0 => 'id',
-				1 => 'nome',
-				2 => 'cpf',
-				3 => 'data_nasc',
-				4 => 'regiao',
-				5 => 'celular'
-			);
+			$data['list'] = $this->getList();
+			$this->load->view('template/restrito', $data);
+		}
 
-			$limit = $this->input->post('length');
-			$start = $this->input->post('start');
-			$order = $columns[$this->input->post('order')[0]['column']];
-			$dir = $this->input->post('order')[0]['dir'];
+		public function getList() {
+			$data['clients'] = $this->db->get('clientes')->result_array();
+			$data['total'] = $this->db->get('clientes')->num_rows();
+			die($this->load->view('clientes/list', $data));
+		}
 
-			$totalData = $this->Clientes_Model->allclients_count();
+		public function save()
+		{
+			$data = $this->input->post(null, true);
 
-			$totalFiltered = $totalData;
-
-			if (empty($this->input->post('search')['value'])) {
-				$clients = $this->Clientes_Model->allclients($limit, $start, $order, $dir);
+			if (!empty($data['id'])) {
+				if ($this->form_validation->run()) $this->db->where('id', $data['id'])->update('clientes', $data);
 			} else {
-				$search = $this->input->post('search')['value'];
-
-				$clients =  $this->Clientes_Model->clients_search($limit, $start, $search, $order, $dir);
-
-				$totalFiltered = $this->Clientes_Model->clients_search_count($search);
+				$this->config[] = array(
+					'field' => 'cpf',
+					'label' => 'CPF',
+					'rules' => 'is_unique[clientes.cpf]',
+					array(
+						'is_unique[clientes.cpf]' => 'Este CPF já está cadastrado.'
+					)
+				);
+				if ($this->form_validation->run()) $this->db->insert('clientes', $data);
 			}
+			$this->index();
+		}
 
-			$data = array();
-			if (!empty($clients)) {
-				foreach ($clients as $client) {
+		public function save_desc()
+		{
+			$data = $this->input->post(null, null);
+			echo '<pre>';
+			die(print_r($data));
+			$this->db->where('id', $data['id'])->update('clientes', $data);
+			echo 'success';
+			$this->show($data['id']);
+		}
 
-					$nestedData['id'] = $client->id;
-					$nestedData['title'] = $client->title;
-					$nestedData['body'] = substr(strip_tags($client->body), 0, 50) . "...";
-					$nestedData['created_at'] = date('j M Y h:i a', strtotime($client->created_at));
+		public function edit($id = null)
+		{
+			$data['cliente'] = $this->db->where('id', $id)->get('clientes')->result_array()[0];
+			$this->template->load('template/restrito', 'clientes/edit', $data);
+		}
 
-					$data[] = $nestedData;
-				}
+		public function delete($id)
+		{
+			if(!is_array($id)) 	$aid = $id;
+			else 								$aid = implode(',', $id);
+
+			if(!is_array($aid)) {
+				$this->db->where("id IN ({$aid})")->delete('clientes');
 			}
+		}
 
-			$json_data = array(
-				"draw"            => intval($this->input->post('draw')),
-				"recordsTotal"    => intval($totalData),
-				"recordsFiltered" => intval($totalFiltered),
-				"data"            => $data
-			);
-
-			echo json_encode($json_data);
+		public function show($id)
+		{
+			$data = $this->db->where('id', $id)->get('clientes')->result_array()[0];
+			echo json_encode($data);
 		}
 	}
