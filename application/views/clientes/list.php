@@ -12,7 +12,12 @@
 		<tbody>
 			<?php foreach ($clients as $client) : ?>
 				<tr>
-					<td><?= $client['id']; ?></td>
+					<td>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="<?= $client['id']; ?>" name="delete_id[]">
+							<label class="form-check-label" for="check-<?= $client['id']; ?>" style="color:black"><?= $client['id']; ?></label>
+						</div>
+					</td>
 					<td><?= $client['nome'] . ' ' . $client['sobrenome']; ?></td>
 					<td><?= $client['cpf']; ?></td>
 					<td><?= date('d/m/Y', strtotime($client['data_nasc'])); ?></td>
@@ -45,13 +50,13 @@
 			<th>Opções</th>
 		</tfoot>
 	</table>
+	<form id="form_delete" method="post" action=""></form>
 	<div class="pagination row">
 		<div class="col-5">
 			<p><span style="color:#13C5FF; font-weight: 700"><?= $total; ?></span> Clientes cadastrados.</p>
 		</div>
 		<div class="col-7 text-right pr-3">
-			<?php echo 'teste'; //$pagination; 
-			?>
+			<?php echo $pagination; ?>
 		</div>
 	</div>
 </div>

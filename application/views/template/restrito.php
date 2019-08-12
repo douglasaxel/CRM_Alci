@@ -103,7 +103,9 @@
 						</div>
 					</div>
 					<hr>
-					<?= $list; ?>
+					<div id="lista">
+						<?= $list; ?>
+					</div>
 					<hr>
 				</div>
 			</div>

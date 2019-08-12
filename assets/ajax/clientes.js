@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	//before upload to server, alter this to "document.location.origin + '/'"
-	var caminho = $('meta[name=base').attr('content'); 
+	var caminho = $('meta[name=base').attr('content');
 
 	// $('.btn-add').click(function() {
 	// 	$('form#form-addClient').find('input[name=id]').val(''),
@@ -18,11 +18,11 @@ $(document).ready(function() {
 	// });
 
 
-	$("form#form-addClient").submit(function(form) {
+	$("form#form-addClient").submit(function (form) {
 		form.preventDefault();
 		$.ajax({
 			method: 'POST',
-			url: caminho + 'clientes/save',
+			url: caminho + 'clientes/setAjax/',
 			data: {
 				id: $(this).find('input[name=id]').val(),
 				nome: $(this).find('input[name=nome]').val(),
@@ -37,17 +37,17 @@ $(document).ready(function() {
 				email: $(this).find('input[name=email]').val(),
 				descricao: $(this).find('input[name=descricao]').val()
 			},
-			beforeSend: function() {
+			beforeSend: function () {
 				$('#form-addClient#resultado').html('Enviando...');
 			}
-		}).done(function(data) {
+		}).done(function (data) {
 			data = JSON.parse(data);
-			if(data.error) {
+			if (data.error) {
 				Swal.fire({
 					title: 'Erro',
 					text: data.error,
 					type: 'error'
-				}).then(function() {
+				}).then(function () {
 					$('form#form-addClient').find('#cpf').focus();
 				});
 			} else {
@@ -55,29 +55,29 @@ $(document).ready(function() {
 					title: 'Sucesso',
 					text: 'Cliente cadastrado com sucesso!',
 					type: 'success'
-				}).then(function() {
+				}).then(function () {
 					location.reload();
 				});
 			}
-		}).fail(function(jqXHR, textStatus, msg) {
+		}).fail(function (jqXHR, textStatus, msg) {
 			Swal.fire(
 				'ERRO',
 				'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
 				'error'
-			  );
+			);
 		});
 	});
 
-	$('form#form-clientComment').submit(function(form) {
+	$('form#form-clientComment').submit(function (form) {
 		form.preventDefault();
 		$.ajax({
 			method: 'POST',
-			url: caminho +  '/clientes/save_desc',
+			url: caminho + '/clientes/save_desc',
 			data: {
 				id: $(this).find('input[name=id]').val(),
 				descricao: $(this).find('textarea[name=descricao]').val()
 			}
-		}).done(function(data) {
+		}).done(function (data) {
 			$(this).find('#resultado').html('');
 			$(this).find('textarea[name=descricao]').val('');
 			Swal.fire({
@@ -86,7 +86,7 @@ $(document).ready(function() {
 				type: 'success'
 			});
 			location.reload();
-		}).fail(function(jqXHR, textStatus, msg) {
+		}).fail(function (jqXHR, textStatus, msg) {
 			Swal.fire({
 				title: 'ERRO',
 				text: 'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
@@ -95,79 +95,116 @@ $(document).ready(function() {
 		});
 	});
 
-	// $('.btn-delete').click(function() {
-	// 	$.ajax({
-	// 		method: 'post',
-	// 		url: caminho + 'clientes/delete/' + $(this).val()
-	// 	}).done(function(data) {
-	// 		Swal.fire({
-	// 			title: 'Sucesso',
-	// 			text: 'Cliente deletado com sucesso!',
-	// 			type: 'success',
-	// 			onAfterClose: location.reload()
-	// 		});
-	// 	}).fail(function(jqXHR, textStatus, msg) {
-	// 		Swal.fire({
-	// 			title: 'ERRO',
-	// 			text: 'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
-	// 			type: 'error'
-	// 		});
-	// 	});
-	// });
-
-	$('.btn-alter').click(function() {
+	$('#btn-delete').click(function () {
+		$('.carregando').show();
 		$.ajax({
-			method: 'POST',
-			url: caminho + 'clientes/show/' + $(this).val()
-		}).done(function(data) {
-			data = JSON.parse(data);
-			$('#form-addClient').find('input[name=id]').val(data.id),
-			$('#form-addClient').find('input[name=nome]').val(data.nome),
-			$('#form-addClient').find('input[name=sobrenome]').val(data.sobrenome),
-			$('#form-addClient').find('input[name=cpf]').val(data.cpf),
-			$('#form-addClient').find('input[name=data_nasc]').val(data.data_nasc),
-			$('#form-addClient').find('input[name=endereco]').val(data.endereco),
-			$('#form-addClient').find('input[name=bairro]').val(data.bairro),
-			$('#form-addClient').find('select[name=regiao]').val(data.regiao),
-			$('#form-addClient').find('input[name=telefone]').val(data.telefone),
-			$('#form-addClient').find('input[name=celular]').val(data.celular),
-			$('#form-addClient').find('input[name=email]').val(data.email),
-			$('#form-addClient').find('textarea[name=descricao]').html(data.descricao)
-			$('#addClient').modal('show');
-		}).fail(function(jqXHR, textStatus, msg) {
-			Swal.fire(
-				'ERRO',
-				'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
-				'error'
-			  );
+			method: 'post',
+			url: caminho + 'clientes/delete/'
+		}).done(function (data) {
+			Swal.fire({
+				title: 'CUIDADO',
+				text: 'Tem certeza que deseja deletar?',
+				type: 'warning'
+			}).then(function () {
+				var form = $('#form_delete');
+				$('#form_delete input').remove();
+
+				$('#clients_table input[name="delete_id[]"]:checked').each(function () {
+					var value = $(this).val();
+					var id = form.append("<input name='id[]' type='hidden' value='" + value + "'/>");
+				});
+			});
+			$('.carregando').hide();
 		});
 	});
 
-	$('.btn-show').click(function() {
-		alert($(this.val()));
+	$('.btn-delete').click(function () {
 		$.ajax({
-			method: 'get',
-			url: caminho + 'clientes/show/' + $(this).val(),
-			data: {id: $(this).val()}
-		}).done(function(data) {
+			method: 'post',
+			url: caminho + 'clientes/delete/' + $(this).val()
+		}).done(function (data) {
+			Swal.fire({
+				title: 'Sucesso',
+				text: 'Cliente deletado com sucesso!',
+				type: 'success'
+			});
+			$('#lista').html(data);
+		}).fail(function (jqXHR, textStatus, msg) {
+			Swal.fire({
+				title: 'ERRO',
+				text: 'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
+				type: 'error'
+			});
+		});
+	});
+
+	$('.btn-alter').click(function () {
+		$.ajax({
+			method: 'POST',
+			url: caminho + 'clientes/show/' + $(this).val()
+		}).done(function (data) {
 			data = JSON.parse(data);
-			$('#mais-informacoes').find('input[name=id]').val(data.id),
-			$('#mais-informacoes').find('input[name=nome]').val(data.nome + ' ' + data.sobrenome),
-			$('#mais-informacoes').find('input[name=cpf]').val(data.cpf),
-			$('#mais-informacoes').find('input[name=data_nasc]').val(data.data_nasc),
-			$('#mais-informacoes').find('input[name=endereco]').val(data.endereco),
-			$('#mais-informacoes').find('input[name=bairro]').val(data.bairro),
-			$('#mais-informacoes').find('select[name=regiao]').val(data.regiao),
-			$('#mais-informacoes').find('input[name=telefone]').val(data.telefone),
-			$('#mais-informacoes').find('input[name=celular]').val(data.celular),
-			$('#mais-informacoes').find('input[name=email]').val(data.email),
-			$('#mais-informacoes').find('textarea[name=descricao]').html(data.descricao)
-		}).fail(function(jqXHR, textStatus, msg) {
+			$('#form-addClient').find('input[name=id]').val(data.id),
+				$('#form-addClient').find('input[name=nome]').val(data.nome),
+				$('#form-addClient').find('input[name=sobrenome]').val(data.sobrenome),
+				$('#form-addClient').find('input[name=cpf]').val(data.cpf),
+				$('#form-addClient').find('input[name=data_nasc]').val(data.data_nasc),
+				$('#form-addClient').find('input[name=endereco]').val(data.endereco),
+				$('#form-addClient').find('input[name=bairro]').val(data.bairro),
+				$('#form-addClient').find('select[name=regiao]').val(data.regiao),
+				$('#form-addClient').find('input[name=telefone]').val(data.telefone),
+				$('#form-addClient').find('input[name=celular]').val(data.celular),
+				$('#form-addClient').find('input[name=email]').val(data.email),
+				$('#form-addClient').find('textarea[name=descricao]').html(data.descricao)
+			$('#addClient').modal('show');
+		}).fail(function (jqXHR, textStatus, msg) {
 			Swal.fire(
 				'ERRO',
 				'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
 				'error'
-			  );
+			);
+		});
+	});
+
+	// $('.btn-show').click(function() {
+	// 	$.ajax({
+	// 		method: 'get',
+	// 		url: caminho + 'clientes/show/' + $(this).val(),
+	// 		data: {id: $(this).val()}
+	// 	}).done(function(data) {
+	// 		data = JSON.parse(data);
+	// 		$('#mais-informacoes').find('input[name=id]').val(data.id),
+	// 		$('#mais-informacoes').find('input[name=nome]').val(data.nome + ' ' + data.sobrenome),
+	// 		$('#mais-informacoes').find('input[name=cpf]').val(data.cpf),
+	// 		$('#mais-informacoes').find('input[name=data_nasc]').val(data.data_nasc),
+	// 		$('#mais-informacoes').find('input[name=endereco]').val(data.endereco),
+	// 		$('#mais-informacoes').find('input[name=bairro]').val(data.bairro),
+	// 		$('#mais-informacoes').find('select[name=regiao]').val(data.regiao),
+	// 		$('#mais-informacoes').find('input[name=telefone]').val(data.telefone),
+	// 		$('#mais-informacoes').find('input[name=celular]').val(data.celular),
+	// 		$('#mais-informacoes').find('input[name=email]').val(data.email),
+	// 		$('#mais-informacoes').find('textarea[name=descricao]').html(data.descricao)
+	// 	}).fail(function(jqXHR, textStatus, msg) {
+	// 		Swal.fire(
+	// 			'ERRO',
+	// 			'Erro ao encaminhar os dados.\n' + jqXHR + '\n' + textStatus + '\n' + msg,
+	// 			'error'
+	// 		  );
+	// 	});
+	// });
+
+	$('.btn-show').click(function () {
+		$.ajax({
+			method: 'get',
+			url: caminho + 'clientes/setAjax/'
+		}).done(function (data) {
+			$('#lista').html(data);
+		}).fail(function (jqXHR, textStatus, msg) {
+			Swal.fire(
+				'ERRO',
+				'Erro na transmissão de dados.',
+				'error'
+			);
 		});
 	});
 

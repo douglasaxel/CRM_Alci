@@ -45,10 +45,23 @@
 			$this->load->view('template/restrito', $data);
 		}
 
-		public function getList() {
-			$data['clients'] = $this->db->get('clientes')->result_array();
+		public function setAjax()
+		{
+			die($this->getList());
+		}
+
+		public function getList()
+		{
+			$this->load->library('pagination');
+			$config['base_url'] = base_url();
+			$config['total_rows'] = $this->db->get('clientes')->num_rows();
+			$config['per_page'] = 100;
+			$this->pagination->initialize($config);
+
+			$data['clients'] = $this->db->select('*')->from('clientes')->limit($config['per_page'],)->order_by('id DESC')->get()->result_array();
 			$data['total'] = $this->db->get('clientes')->num_rows();
-			die($this->load->view('clientes/list', $data));
+			$data['pagination'] = $this->pagination->create_links();;
+			return $this->load->view('clientes/list', $data, true);
 		}
 
 		public function save()
@@ -89,10 +102,10 @@
 
 		public function delete($id)
 		{
-			if(!is_array($id)) 	$aid = $id;
+			if (!is_array($id)) 	$aid = $id;
 			else 								$aid = implode(',', $id);
 
-			if(!is_array($aid)) {
+			if (!is_array($aid)) {
 				$this->db->where("id IN ({$aid})")->delete('clientes');
 			}
 		}
