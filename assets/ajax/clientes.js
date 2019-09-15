@@ -22,7 +22,7 @@ $(document).ready(function () {
 		form.preventDefault();
 		$.ajax({
 			method: 'POST',
-			url: caminho + 'clientes/setAjax/',
+			url: caminho + 'clientes/save/',
 			data: {
 				id: $(this).find('input[name=id]').val(),
 				nome: $(this).find('input[name=nome]').val(),
@@ -38,17 +38,23 @@ $(document).ready(function () {
 				descricao: $(this).find('input[name=descricao]').val()
 			},
 			beforeSend: function () {
-				$('#form-addClient#resultado').html('Enviando...');
+				$('#form-addClient #resultado').html('Enviando...');
 			}
 		}).done(function (data) {
-			data = JSON.parse(data);
-			if (data.error) {
+			alert(data);
+			if (data == 'cpf') {
 				Swal.fire({
 					title: 'Erro',
-					text: data.error,
+					text: 'Este CPF já está cadastrado.',
 					type: 'error'
 				}).then(function () {
 					$('form#form-addClient').find('#cpf').focus();
+				});
+			} else if(data == 'error') {
+				Swal.fire({
+					title: 'Erro',
+					text: 'Ocorreu algum erro no cadastro do cliente.',
+					type: 'success'
 				});
 			} else {
 				Swal.fire({

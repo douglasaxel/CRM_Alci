@@ -136,7 +136,7 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label>CPF</label>
-									<input type="text" class="form-control cpf" name="cpf" id="cpf" placeholder="CPF">
+									<input type="text" class="form-control" name="cpf" id="cpf" placeholder="CPF">
 								</div>
 								<div class="form-group col-md-6">
 									<label>Data de nascimento</label>

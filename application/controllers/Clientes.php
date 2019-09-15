@@ -3,40 +3,38 @@
 	class Clientes extends CI_Controller
 	{
 
+		var $validation = array(
+			array(
+				'field' => 'nome',
+				'label' => 'Nome',
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'sobrenome',
+				'label' => 'Sobrenome',
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'regiao',
+				'label' => 'Região',
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'celular',
+				'label' => 'Celular',
+				'rules' => 'trim|required'
+			),
+			array(
+				'field' => 'data_nasc',
+				'label' => 'Data de nascimento',
+				'rules' => 'trim|required'
+			)
+		);
+
 		public function __construct()
 		{
 			parent::__construct();
 			$this->session_control->verify_session();
-
-			$config = array(
-				array(
-					'field' => 'nome',
-					'label' => 'Nome',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'sobrenome',
-					'label' => 'Sobrenome',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'regiao',
-					'label' => 'Região',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'celular',
-					'label' => 'Celular',
-					'rules' => 'trim|required'
-				),
-				array(
-					'field' => 'data_nasc',
-					'label' => 'Data de nascimento',
-					'rules' => 'trim|required'
-				)
-			);
-
-			$this->form_validation->set_rules($config);
 		}
 
 		public function index()
@@ -69,9 +67,15 @@
 			$data = $this->input->post(null, true);
 
 			if (!empty($data['id'])) {
-				if ($this->form_validation->run()) $this->db->where('id', $data['id'])->update('clientes', $data);
+				$this->form_validation->set_rules($this->validation);
+				if ($this->form_validation->run()) {
+					$this->db->where('id', $data['id'])->update('clientes', $data);
+					return $this->setAjax();
+				} else {
+					return 'cpf';
+				}
 			} else {
-				$this->config[] = array(
+				$this->validation[] = array(
 					'field' => 'cpf',
 					'label' => 'CPF',
 					'rules' => 'is_unique[clientes.cpf]',
@@ -79,9 +83,14 @@
 						'is_unique[clientes.cpf]' => 'Este CPF já está cadastrado.'
 					)
 				);
-				if ($this->form_validation->run()) $this->db->insert('clientes', $data);
+				$this->form_validation->set_rules($this->validation);
+				if ($this->form_validation->run()) {
+					$this->db->insert('clientes', $data);
+					return $this->setAjax();
+				} else {
+					return 'error';
+				}
 			}
-			$this->index();
 		}
 
 		public function save_desc()
